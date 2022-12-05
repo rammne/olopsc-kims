@@ -1,0 +1,40 @@
+{% extends 'kims/base.html'%}
+{% block content %}
+<div class="text-center">
+  <div>
+    <h1>Groups</h1>
+    <hr>
+        <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Student</th>
+          <th scope="col">Image</th>
+          <th scope="col">Item</th>
+          <th scope="col">Date of procurement</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+          {% for obj in objs %}
+          <tbody>
+        <tr>
+          <td>{{obj.student}}</td>
+          <td><img src="{{ obj.item.image.url }}" width="100" height="100"></td>
+          <td>{{obj.item}}</td>
+          <td>{{obj.date_issued|date:"F d, Y"}}</td>
+          <td>{{obj.get_status_display}}</td>
+          <td>
+            <form method="GET">
+              <button class="btn btn-outline-info mb-2" name="Accept" value="{{obj.student}}|{{obj.item}}">Accept</button>
+              <br>
+              <button class="btn btn-outline-info mb-2" name="Decline" value="{{obj.student}}|{{obj.item}}">Decline</button>
+              <br>
+              <button class="btn btn-outline-info mb-2" name="Returned" value="{{obj.student}}|{{obj.item}}">Returned</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+          {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock content %}
